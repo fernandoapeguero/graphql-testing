@@ -30,26 +30,31 @@ class Car {
 }
 console.log(carDatabase);
 
-const resolvers = {
-    getFriend: ({ id }) => {
-        return new Friend(id, friendDatabase[id]);
+//resolver map
+export const resolvers = {
+    Query: {
+        getFriend: ({ id }) => {
+            return new Friend(id, friendDatabase[id]);
+        },
+        getCar: ({ id }) => {
+            return new Car(carDatabase[id]);
+        },
     },
-    getCar: ({ id }) => {
-        return new Car(carDatabase[id]);
-    },
-    createFriend: ({ input }) => {
-        let id = require('crypto').randomBytes(10);
+    Mutation: {
+        createFriend: ({ input }) => {
+            let id = require('crypto').randomBytes(10);
 
-        friendDatabase[id] = input;
-        return new Friend(id, input);
-    },
-    createCar: ({ input }) => {
-        console.log(input);
-        let id = require('crypto').randomBytes(10);
+            friendDatabase[id] = input;
+            return new Friend(id, input);
+        },
+        createCar: ({ input }) => {
+            console.log(input);
+            let id = require('crypto').randomBytes(10);
 
-        carDatabase[id] = input;
-        console.log(carDatabase);
-        return new Car(id, input);
+            carDatabase[id] = input;
+            console.log(carDatabase);
+            return new Car(id, input);
+        },
     },
 };
 
