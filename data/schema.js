@@ -7,15 +7,20 @@ const typeDefs = `
         id: ID
         firstName: String
         lastName: String
-        Gender: String
-        age: Gender
-        isFriend: Boolean
+        gender: String
+        age: Int
         email: String
-        car: Car
+        language: String
         contacts: [Contact]
         
     }
 
+    type Alien {
+        id: ID
+        firstName: String
+        lastName: String
+        planet: String
+    }
     type Contact {
         firstName: String
         lastName: String
@@ -24,30 +29,28 @@ const typeDefs = `
     enum Gender {
         MALE
         FEMALE
-        HELICOPTER
-        SQUASHANDDASH
         OTHER
     }
 
     type Query {
         getFriend(id: ID): Friend 
-        car(id: ID): Car
     }
     
     input FriendInput {
         id: ID
         firstName: String
         lastName: String
-        Gender: Gender
+        gender: Gender
         age: Int
         email: String
         contacts: [ContactInput]
-        car: CarInput
+
     }
 
     type Mutation {
         createFriend(input: FriendInput): Friend
-        createCar(input: CarInput): Car
+        updateFriend(input: FriendInput): Friend
+        deleteFriend(id: ID!): String
     }
 
     input ContactInput {
@@ -56,27 +59,8 @@ const typeDefs = `
     }
 
 
-    type Car {
-        id: ID
-        brand: String
-        model: String
-        mileage: Int
-        isElectric: Boolean
-        price: Float 
-        horsePower: Int
-    }
-
-    input CarInput {
-        id: ID
-        brand: String
-        model: String
-        mileage: Int
-        isElectric: Boolean
-        price: Float 
-        horsePower: Int
-    }
 `;
 
-const schema = makeExecutableSchema(typeDefs, resolvers);
+const schema = makeExecutableSchema({ typeDefs, resolvers });
 
 export { schema };
